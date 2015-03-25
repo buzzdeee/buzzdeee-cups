@@ -35,7 +35,42 @@
 #
 # Copyright 2015 Your name here, unless otherwise noted.
 #
-class cups {
+class cups (
+  $packages           = $cups::params::packages,
+  $packages_ensure    = $cups::params::packages_ensure,
+  $is_cups_client     = $cups::params::is_cups_client,
+  $is_cups_server     = $cups::params::is_cups_server,
+  $remote_cups_server = $cups::params::remote_cups_server,
+  $service_provider   = $cups::params::service_provider,
+  $services           = $cups::params::services,
+) inherits cups::params {
 
+  class { 'cups::install':
+    packages_ensure => $packages_ensure,
+    packages        => $packages,
+  }
 
+  if $is_cups_client {
+    class { 'cups::client::config':
+      remote_cups_server => $remote_cups_server,
+    }
+
+    class { 'cups::client::service':
+      service_provider => $service_provider,
+      services         => $services,
+    }
+
+    Class['cups::install'] ->
+    Class['cups::client::config'] ~>
+    Class['cups::client::service']
+  }
+  if $is_cups_server {
+    Class['cups::install'] ->
+    Class['cups::server::config'] ~>
+    Class['cups::server::service']
+
+    Class['cups::install'] ->
+    Class['cups::server::config'] ~>
+    Class['cups::server::service']
+  }
 }
