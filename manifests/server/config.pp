@@ -36,7 +36,7 @@ class cups::server::config (
   }
 
   $printers.each |Integer $index, String $printer| {
-    file "/etc/cups/ppd/${printer}.ppd":
+    file { "/etc/cups/ppd/${printer}.ppd":
       ensure  => 'file',
       require => 'Package['cups'],
       owner   => 'root',
