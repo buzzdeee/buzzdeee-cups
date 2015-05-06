@@ -45,6 +45,8 @@ class cups (
   $remote_cups_server = $cups::params::remote_cups_server,
   $service_provider   = $cups::params::service_provider,
   $services           = $cups::params::services,
+  $printers           = $cups::params::printers,
+  $default_printer    = $cups::params::default_printer,
 ) inherits cups::params {
 
   class { 'cups::install':

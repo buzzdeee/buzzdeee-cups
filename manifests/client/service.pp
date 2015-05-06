@@ -6,8 +6,8 @@ class cups::client::service (
 ){
 
   service { $services:
-    ensure => 'stopped',
-    enable => false,
+    ensure   => 'stopped',
+    enable   => false,
     provider => $service_provider,
   }
 

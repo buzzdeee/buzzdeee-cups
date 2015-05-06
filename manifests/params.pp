@@ -17,12 +17,18 @@ class cups::params {
       $cups_user = 'root'
       $cups_group = 'lp'
     }
+    default: {
+      fail("${module_name}: Unsupported platform ${::osfamily}.")
+    }
   }
+
+  $printers = [ 'LaserJet' ]
+  $default_printer = 'LaserJet'
 
   $packages_ensure = 'installed'
 
-  $is_cups_client = 'false'
-  $is_cups_server = 'false'
+  $is_cups_client = false
+  $is_cups_server = false
   $remote_cups_server = 'cups'
 
 }

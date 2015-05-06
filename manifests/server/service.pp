@@ -6,8 +6,8 @@ class cups::server::service (
 ){
 
   service { $services:
-    ensure => 'started',
-    enable => true,
+    ensure   => 'started',
+    enable   => true,
     provider => $service_provider,
   }
 
