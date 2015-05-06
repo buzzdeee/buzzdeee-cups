@@ -5,13 +5,17 @@ class cups::params {
   case $::osfamily {
     'OpenBSD': {
       $packages = [ 'cups', 'hpcups', ]
-      $service_provider = undef
+      $service_provider = 'openbsd'
       $services = [ 'cupsd' ]
+      $cups_user = '_cups'
+      $cups_group = '_cups'
     }
     'Suse': {
       $packages = [ 'cups', 'cups-libs', 'cups-client', ]
       $service_provider = 'systemd'
       $services = [ 'cupsd.service', 'cups.path', 'cups.service', 'cups.socket' ]
+      $cups_user = 'root'
+      $cups_group = 'lp'
     }
   }
 

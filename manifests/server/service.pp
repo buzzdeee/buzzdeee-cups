@@ -1,13 +1,13 @@
 # private class, do not use directly
 # takes care about the service
-class cups::client::service (
+class cups::server::service (
   $service_provider,
   $services,
 ){
 
   service { $services:
-    ensure => 'stopped',
-    enable => false,
+    ensure => 'started',
+    enable => true,
     provider => $service_provider,
   }
 

@@ -36,6 +36,8 @@
 # Copyright 2015 Your name here, unless otherwise noted.
 #
 class cups (
+  $cups_user          = $cups::params::cups_user,
+  $cups_group         = $cups::params::cups_group,
   $packages           = $cups::params::packages,
   $packages_ensure    = $cups::params::packages_ensure,
   $is_cups_client     = $cups::params::is_cups_client,
@@ -65,10 +67,17 @@ class cups (
     Class['cups::client::service']
   }
   if $is_cups_server {
-    Class['cups::install'] ->
-    Class['cups::server::config'] ~>
-    Class['cups::server::service']
-
+    class { 'cups::server::config':
+      printers        => $printers,
+      default_printer => $default_printer,
+      cups_user       => $cups_user,
+      cups_group      => $cups_group,
+    }
+    class { 'cups::server::service':
+      service_provider => $service_provider,
+      services         => $services,
+    }
+    
     Class['cups::install'] ->
     Class['cups::server::config'] ~>
     Class['cups::server::service']
