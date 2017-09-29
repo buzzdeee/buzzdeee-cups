@@ -29,7 +29,8 @@ class cups::server::config (
   }
   exec { 'cups_sane_copy_printers.conf':
     command     => '/bin/cp /etc/cups/printers.conf.puppet /etc/cups/printers.conf',
-    unless      => 'grep LaserJet /etc/cups/printers.conf 2>/dev/null',
+    # refreshonly is enough
+    # unless      => 'grep LaserJet /etc/cups/printers.conf 2>/dev/null',
     subscribe   => File['/etc/cups/printers.conf.puppet'],
     notify      => Service['cupsd'],
     refreshonly => true,
