@@ -64,9 +64,9 @@ class cups (
       services         => $services,
     }
 
-    Class['cups::install'] ->
-    Class['cups::client::config'] ~>
-    Class['cups::client::service']
+    Class['cups::install']
+    -> Class['cups::client::config']
+    ~> Class['cups::client::service']
   }
   if $is_cups_server {
     class { 'cups::server::config':
@@ -79,9 +79,9 @@ class cups (
       service_provider => $service_provider,
       services         => $services,
     }
-    
-    Class['cups::install'] ->
-    Class['cups::server::config'] ~>
-    Class['cups::server::service']
+
+    Class['cups::install']
+    -> Class['cups::server::config']
+    ~> Class['cups::server::service']
   }
 }
