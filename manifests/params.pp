@@ -18,7 +18,7 @@ class cups::params {
       $cups_group = 'lp'
     }
     default: {
-      fail("${module_name}: Unsupported osfamily ${$facts['os']['family']}.")
+      fail("${module_name}: Unsupported osfamily ${facts['os']['family']}.")
     }
   }
 
