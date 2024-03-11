@@ -2,7 +2,7 @@
 # the parameters that drive this module
 
 class cups::params {
-  case $::osfamily {
+  case $facts['os']['family'] {
     'OpenBSD': {
       $packages = [ 'cups', 'hpcups', ]
       $service_provider = 'openbsd'
@@ -18,7 +18,7 @@ class cups::params {
       $cups_group = 'lp'
     }
     default: {
-      fail("${module_name}: Unsupported platform ${::osfamily}.")
+      fail("${module_name}: Unsupported osfamily ${$facts['os']['family']}.")
     }
   }
 
